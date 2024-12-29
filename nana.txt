@@ -1,0 +1,20 @@
+#include <xinu.h>
+
+/* ------------------------------------------------------------------
+ * getprocesscount - Syscall to count the number of active processes
+ * ------------------------------------------------------------------
+ */
+uint32 getprocesscount(void) {
+    intmask mask;         /* Saved interrupt mask */
+    uint32 count = 0;     /* Counter for active processes */
+    pid32 i;              /* Iterator for process table */
+
+    mask = disable();     /* Disable interrupts */
+    for (i = 0; i < NPROC; i++) {
+        if (proctab[i].prstate != PR_FREE) {
+            count++;
+        }
+    }
+    restore(mask);        /* Restore interrupts */
+    return count;         /* Return the count */
+}
