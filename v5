@@ -1,0 +1,67 @@
+xsh $ ps
+PID   Name        State      Priority
+-------------------------------------
+0     null        PR_CURR    0
+1     main        PR_READY   20
+2     process2    PR_READY   15
+3     process3    PR_READY   10
+4     process4    PR_READY   25
+5     process5    PR_READY   10
+-------------------------------------
+
+
+xsh $ uptime
+System Uptime: 500 seconds
+
+Changing priority of process with ID 5 to 33...
+
+
+xsh $ ps
+PID   Name        State      Priority
+-------------------------------------
+0     null        PR_CURR    0
+1     main        PR_READY   20
+2     process2    PR_READY   15
+3     process3    PR_READY   10
+4     process4    PR_READY   25
+5     process5    PR_READY   33
+-------------------------------------
+
+
+xsh $ uptime
+System Uptime: 510 seconds
+
+Changing priority of process with ID 5 to -3...
+
+
+
+
+xsh $ ps
+PID   Name        State      Priority
+-------------------------------------
+0     null        PR_CURR    0
+1     main        PR_READY   20
+2     process2    PR_READY   15
+3     process3    PR_READY   10
+4     process4    PR_READY   25
+5     process5    PR_READY   33
+-------------------------------------
+
+
+
+xsh $ uptime
+System Uptime: 520 seconds
+
+Changing priority of process with ID 3000 to 3...
+
+
+xsh $ ps
+PID   Name        State      Priority
+-------------------------------------
+0     null        PR_CURR    0
+1     main        PR_READY   20
+2     process2    PR_READY   15
+3     process3    PR_READY   10
+4     process4    PR_READY   25
+5     process5    PR_READY   33
+-------------------------------------
