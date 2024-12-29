@@ -1,0 +1,8 @@
+#include <xinu.h>
+
+shellcmd xsh_uptime(int nargs, char *args[]) {
+    kprintf("\nSystem Uptime: %u seconds\n", clktime);
+    kprintf("\nChanging priority of process with ID 5 to 33...\n");
+    chprio(5, 33);
+    return 0;
+}
