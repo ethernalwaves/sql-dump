@@ -1,0 +1,46 @@
+#include <xinu.h>
+
+/*------------------------------------------------------------------------
+ *  chprio  -  Change the scheduling priority of a process
+ *------------------------------------------------------------------------
+ */
+pri16 chprio(
+    pid32 pid,       /* ID of process to change */
+    pri16 newprio    /* New priority */
+) {
+    intmask mask;           /* Saved interrupt mask */
+    struct procent *prptr;  /* Ptr to process's table entry */
+    pri16 oldprio;          /* Priority to return */
+
+    /* Disable interrupts */
+    mask = disable();
+
+    /* Validasi ID proses */
+    if (pid < 0 || pid >= NPROC) {
+        restore(mask);
+        return (pri16) SYSERR;
+    }
+
+    /* Validasi prioritas baru */
+    if (newprio <= 0) {
+        restore(mask);
+        return (pri16) SYSERR;
+    }
+
+    /* Dapatkan pointer ke tabel proses */
+    prptr = &proctab[pid];
+
+    /* Pastikan proses tidak dalam status bebas */
+    if (prptr->prstate == PR_FREE) {
+        restore(mask);
+        return (pri16) SYSERR;
+    }
+
+    /* Simpan prioritas lama dan perbarui prioritas */
+    oldprio = prptr->prprio;
+    prptr->prprio = newprio;
+
+    /* Kembalikan interrupt */
+    restore(mask);
+    return oldprio;
+}
